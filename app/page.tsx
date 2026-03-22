@@ -53,11 +53,14 @@ export default function LandingPage() {
       <div className="flex-1 flex flex-col px-6 py-8 gap-4">
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Your Instagram Profile URL
+            Link to one of your Instagram posts
           </label>
+          <p className="text-xs text-gray-500 mb-2">
+            Paste a link to any of your posts (e.g. instagram.com/p/...) to auto-fill your name and photo.
+          </p>
           <input
             type="url"
-            placeholder="https://instagram.com/yourusername"
+            placeholder="https://instagram.com/p/ABC123xyz/"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             className="w-full px-4 py-3 rounded-2xl border-2 border-gray-200 focus:border-purple-400 outline-none text-gray-800 text-base transition-colors"

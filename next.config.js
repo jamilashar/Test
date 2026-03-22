@@ -7,6 +7,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'scontent.cdninstagram.com' },
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ['better-sqlite3', '@prisma/adapter-better-sqlite3'],
+  },
 };
 
 module.exports = nextConfig;

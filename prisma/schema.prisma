@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  instagramUrl String   @unique
+  name         String
+  profilePhoto String
+  photos       String   @default("[]")
+  gender       String
+  tags         String   @default("[]")
+  bio          String   @default("")
+  createdAt    DateTime @default(now())
+
+  sentLikes     Like[]  @relation("SentLikes")
+  receivedLikes Like[]  @relation("ReceivedLikes")
+  matches1      Match[] @relation("User1Matches")
+  matches2      Match[] @relation("User2Matches")
+}
+
+model Like {
+  id         String   @id @default(cuid())
+  fromUserId String
+  toUserId   String
+  action     String
+  createdAt  DateTime @default(now())
+
+  fromUser User @relation("SentLikes", fields: [fromUserId], references: [id])
+  toUser   User @relation("ReceivedLikes", fields: [toUserId], references: [id])
+
+  @@unique([fromUserId, toUserId])
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  user1Id   String
+  user2Id   String
+  createdAt DateTime @default(now())
+
+  user1 User @relation("User1Matches", fields: [user1Id], references: [id])
+  user2 User @relation("User2Matches", fields: [user2Id], references: [id])
+
+  @@unique([user1Id, user2Id])
+}
